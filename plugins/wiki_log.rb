@@ -13,7 +13,6 @@ class WikiLog
   listen_to :ban, :on_ban
   listen_to :quitting, :on_bot_quit
 
-  CATEGORY_TS = "%Y %m %d"
   attr_accessor :log_thread, :buffer, :buffer_mutex
   def initialize(bot)
     super(bot)
@@ -51,7 +50,7 @@ class WikiLog
 
   def update_logs
     @last_log = Time.now.utc
-    title = Time.now.utc.strftime @options[:title]
+    title = Time.now.utc.strftime "%Y %m %d"
     text = @buffer.dup.gsub('<', '&lt;').gsub('>', '&gt;') # Ideally, this is inside a buffer lock somewhere...
     @buffer = ''
     page_content = get_page_contents(title)
